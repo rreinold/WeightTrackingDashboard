@@ -34,9 +34,10 @@ var makeAPICalls = function(refreshTagSchemas){
 
 // Fill in grid with Tags from the selected schema
 var updateDropDown = function (){
+	var select = document.getElementById('checkInSelect');
+	removeChildren(select)
 	// Create jsGrid, load data and fields into it
 	for(var j = 0; j < unmeasuredCheckIns.length; j ++) {
-			var select = document.getElementById('checkInSelect');
 			var option = document.createElement('option');
 			option.innerHTML = unmeasuredCheckIns[j].data.checkindate;
 			option.value = unmeasuredCheckIns[j].data.checkindate;
