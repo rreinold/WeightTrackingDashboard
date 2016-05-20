@@ -1,0 +1,125 @@
+<html>
+	<head>
+		<title>Factory Inspect</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="css/style.css">
+		<script src="lib/ClearBlade.js"></script>
+		<script src="js/framework.js"></script>
+
+		<!--other views here-->
+		<script src="js/app/app.js"></script>
+		<script src="js/logout.js"></script>
+		<script src="js/login.js"></script>
+		<script src="js/app/addTag.js"></script>
+		<script src="js/app/history.js"></script>
+		<script src="js/app/inspect.js"></script>
+	</head>
+
+	<body onload="startup()">
+		<div class="title">
+			<div id="titleLeft" onClick="titleLeftClick()"></div>
+			<div id="titleCenter" onClick="titleCenterClick()"></div>
+			<div id="titleRight" onClick="titleRightClick()"></div>
+		</div>
+
+		<div id="container" class="container">
+			
+			<div id="addTag" class="hidden">
+				<div class="instruction"> The scanned tag was not found in our system. To add this tag - complete the form below and tap "Add Tag" </div>
+				<p class="headerLabel">Category </p>
+				<select class="fullInput" id="objectCategory" onchange="getFormObjects()">
+				</select>
+				
+				<div id="contactSchemaDiv" class="">
+					
+				</div>
+				
+				<div id="detailsSchemaDiv" class="">
+					
+				</div>
+				<div id="alertsSchemaDiv" class="">
+					
+				</div>
+				<div id="actionSchemaDiv" class="">
+					
+				</div>
+				<div></div>
+				<br>
+				<button class="fullButton" id="addTagButton" onClick="addTagEvent()">Add Tag</button>
+				<div class="error" id="addTagError"></div>
+			</div>
+			<div id="tagErr" class="hidden">
+				<div style="margin:250 auto; width: 70%;">
+					<p> There was a problem with your scan and the tag could not be verified.<br>Please rescan the Tag. </p>
+				</div>
+			</div>
+			<div id="inspect" class="hidden">
+				<select class="fullInput" id="inspectType" onchange="getInspectObjects()">
+				</select>
+				<div class="headerLabel" id="date"></div>
+				<div class="headerLabel" id="inspector"></div>
+				<!-- <textarea id="textArea" placeholder="Comments" style="width:90%;height:10%;margin-top:3%;"></textarea>
+ -->
+				<div id="inspectionFieldsDiv"></div>
+				<br>
+				<button class="fullButton" id="inspectButton" onClick="submitInspect()">Submit</button>
+				<div class="error" id="inspectSubmitError"></div>
+			</div>
+			<div id="login" class="hidden">
+				<div style="padding-top:5%;"> You must be logged in to perform this action </div>
+				<input class="fullInput" id="email"  placeholder="email" type="text" value=""/>
+				<input class="fullInput" id="password" placeholder="password" type="password" value=""/>
+				
+				<div></div>
+				<br>
+				<button class="fullButton" id="loginButton" onClick="loginEvent()">Login</button>
+				<div class="error" id="loginError"></div>
+			</div>
+
+
+			<div id="history" class="hidden" style="padding-top:2%;">
+				<p> Contact Information </p>
+				<div style="background-color:#C2CBCE;border-color:gray;border-width:1px;border-style:solid;padding:8px" id="contactDiv">
+					
+				</div>
+				<p id="historyDetailsTitle"> Tag Details Information </p>
+				<div style="background-color:#C2CBCE;border-color:gray;border-width:1px;border-style:solid;padding:8px" id="detailsDiv">
+					<div style="text-align:left;font-weight:bold;">
+						Tag ID:
+					</div>
+					<div style="text-align:left" id="tagId">
+						
+					</div>
+				</div>
+				<p> History </p>
+				<div id="taghistory">
+				</div>
+				<div>
+					<div style="font-style:italic; padding-top:10%;">See an issue with this tag?</div>
+					<button class="fullButton" id="flagButton" onClick="flagTag(event)">Flag</button>
+				</div>
+				<div id="tagEvents">
+				</div>
+			</div> <!--end history view-->
+
+		</div>
+		<div id="footer" class="footer"> 2016 FactoryInspect by &copy;ClearBlade Inc. <img style="height:20px" src='img/blocksClearBladeSmall.png'> 
+			<br> 103 E 5th St  Austin, TX 78701 | <a href="mailto:info@clearblade.com?Subject=Factory%20Inspect%contact%20request" target="_top">info@clearblade.com</a>
+		</div>
+		<div id="typeAheadBox" class="typeAheadBox" style="display:none">
+		</div>
+		<div id="loadingScreen">
+			<div id="loading">
+				<div style="color:white;min-width:200px" id="loadMessage"></div>
+				<button class="fullButton" id="okbutton" onClick="okEvent()">OK</button>
+				<!-- <img src="img/wheel.gif"/> -->
+			</div>
+		</div>
+		<div id="loadingScreenInit">
+			<div id="loadingInit">
+				<div style="color:white;min-width:200px" id="loadMessageInit"></div>
+				<!-- <img src="img/wheel.gif"/> -->
+			</div>
+		</div>
+	</body>
+</html>
