@@ -45,6 +45,27 @@ var updateDropDown = function (){
 		}
 }
 
+var submitCheckIn = function() {
+	var upload = {
+		"weight": parseInt(document.getElementById('weight').value),
+		"date" : document.getElementById('checkInSelect').value
+	};
+	console.log(upload)
+
+	cb.Code().execute("AddCheckIn", upload, function(err, data) {
+			var response = data.results;
+
+			if(!response.err) {
+				
+				blockUI(true, response.result);
+				showView("maindashboard");
+			} else {
+				showError("inspectSubmit", response.result);
+			}
+		});
+
+}
+
 
 
 // Action Due in field, which is derived from database data, need to
