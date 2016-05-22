@@ -4,17 +4,7 @@ var cb = new ClearBlade();
 var params = {};
 var historyInit = false;
 
-var initOptions = {
-	  URI : "https://platform.clearblade.com",
-    messagingURI : "platform.clearblade.com",
-    messagingPort: 8904,
-    useMQTT: true,
-    cleanSession: true,
-    systemKey: "b090d5e80af4f0d8e6d1ebd3c2a601",
-    systemSecret: "B090D5E80AA6CDFAA89BFBC8EA8101",
-    email: "dashboard@clearblade.com",
-    password: "dashboard"
-};
+
 
 var views = {
     login: {
