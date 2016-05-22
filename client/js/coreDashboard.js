@@ -15,6 +15,7 @@ var initOptions = {
 var fetchUnmeasuredCheckIns = function(callback) {
     var query = ClearBlade.prototype.Query({"collectionName":"Checkins"})
     query.equalTo("measured",false)
+    query.ascending("checkindate")
     query.setPage(0, 0);
     query.fetch(function(err, data){
         if (err){
