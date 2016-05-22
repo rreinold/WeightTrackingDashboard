@@ -1,4 +1,4 @@
-  var DEFAULT_POST_LOGIN_VIEW = "checkin";
+  var DEFAULT_POST_LOGIN_VIEW = "maindashboard";
 
   // RR TODO: Add init here
 

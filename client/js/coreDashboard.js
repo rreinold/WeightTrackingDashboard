@@ -1,4 +1,6 @@
 var unmeasuredCheckIns = null;
+var dueDate = null
+var allCheckIns = null
 
 var cb = new ClearBlade();
 var initOptions = {
@@ -12,7 +14,7 @@ var initOptions = {
 };
 
 // Request schemas for the Tag collection
-var fetchUnmeasuredCheckIns = function(callback) {
+function fetchUnmeasuredCheckIns(callback) {
     var query = ClearBlade.prototype.Query({"collectionName":"Checkins"})
     query.equalTo("measured",false)
     query.ascending("checkindate")
@@ -28,6 +30,36 @@ var fetchUnmeasuredCheckIns = function(callback) {
         }
     })
 };
+
+function fetchWeightGoal(){
+    var query = ClearBlade.prototype.Query({"collectionName":"FinalGoals"})
+    query.equalTo("targetname","Weight")
+    query.setPage(0, 0);
+    query.fetch(function(err, data){
+        if (err){
+           alert(JSON.stringify(data));
+        }else{
+            // Store API response locally
+            targetWeight = data[0].data.targetvalue;
+            dueDate = data[0].data.duedate;
+        }
+    })
+}
+
+function fetchAllCheckInData(callback){
+    var query = ClearBlade.prototype.Query({"collectionName":"Checkins"})
+        query.setPage(0, 0);
+        query.fetch(function(err, data){
+            if (err){
+               alert(JSON.stringify(data));
+            }else{
+                // Store API response locally
+                allCheckIns = data
+                callback()
+            }
+        })
+
+}
 
 // Request schemas for the Tag collection
 var isCoordinator = function(successCallback, failureCallback) {
