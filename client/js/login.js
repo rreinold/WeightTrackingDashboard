@@ -18,6 +18,7 @@ var loginEvent = function() {
     };
     
     var email = document.getElementById("email").value;
+    var email = email.toLowerCase();
     var password = document.getElementById("password").value;
     // Clear password
     document.getElementById("password").value = "";
