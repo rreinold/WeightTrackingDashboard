@@ -29,7 +29,7 @@ function fetchUnmeasuredCheckIns(callback) {
             unmeasuredCheckIns = data;
             deferred.resolve()
             // If both have loaded, then load the data grid
-            // callback();
+            callback();
         }
     })
     return deferred.promise
