@@ -16,7 +16,6 @@ function startupMainDashboard() {
 	.then(updateGrid)
 	.done();
 	
-	
 };
 
 
@@ -80,7 +79,7 @@ var structureData = function(schema){
 		entry[CHECKED_IN] = row["measured"]
 
 		if(entry[CHECKED_IN] && i >= 1){
-			
+			var before = allCheckIns[i-1].data["measuredweightlbs"]
 			var after = entry[WEIGHT]
 			var difference =  after - before
 			entry[DIFFERENCE] = difference
