@@ -1,6 +1,7 @@
 var unmeasuredCheckIns = null;
 var dueDate = null
 var allCheckIns = null
+var weightLossPerWeek = 0
 
 var cb = new ClearBlade();
 var initOptions = {
@@ -15,6 +16,7 @@ var initOptions = {
 
 // Request schemas for the Tag collection
 function fetchUnmeasuredCheckIns(callback) {
+    var deferred = Q.defer();
     var query = ClearBlade.prototype.Query({"collectionName":"Checkins"})
     query.equalTo("measured",false)
     query.ascending("checkindate")
@@ -25,13 +27,16 @@ function fetchUnmeasuredCheckIns(callback) {
         }else{
             // Store API response locally
             unmeasuredCheckIns = data;
+            deferred.resolve()
             // If both have loaded, then load the data grid
-            callback();
+            // callback();
         }
     })
+    return deferred.promise
 };
 
 function fetchWeightGoal(){
+    var deferred = Q.defer();
     var query = ClearBlade.prototype.Query({"collectionName":"FinalGoals"})
     query.equalTo("targetname","Weight")
     query.setPage(0, 0);
@@ -42,22 +47,45 @@ function fetchWeightGoal(){
             // Store API response locally
             targetWeight = data[0].data.targetvalue;
             dueDate = data[0].data.duedate;
+            deferred.resolve()
         }
     })
+    return deferred.promise
+}
+
+function fetchWeightLossPerWeek(){
+    var deferred = Q.defer();
+    var query = ClearBlade.prototype.Query({"collectionName":"FinalGoals"})
+    query.equalTo("targetname","WeightLossPerWeek")
+    query.setPage(0, 0);
+    query.fetch(function(err, data){
+        if (err){
+           alert(JSON.stringify(data));
+        }else{
+            // Store API response locally
+            weightLossPerWeek = data[0].data.targetvalue;
+            deferred.resolve()
+        }
+    })
+    return deferred.promise
 }
 
 function fetchAllCheckInData(callback){
+    var deferred = Q.defer();
     var query = ClearBlade.prototype.Query({"collectionName":"Checkins"})
         query.setPage(0, 0);
+        query.ascending("checkindate")
         query.fetch(function(err, data){
             if (err){
                alert(JSON.stringify(data));
             }else{
                 // Store API response locally
                 allCheckIns = data
-                callback()
+                // callback()
+                deferred.resolve()
             }
         })
+        return deferred.promise
 
 }
 

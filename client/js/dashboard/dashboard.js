@@ -2,12 +2,21 @@ var DEFAULT_ID_COL_WIDTH = "75px";
 var DEFAULT_EMAIL_COL_WIDTH = "200px";
 var DEFAULT_SUPPORT_URL_COL_WIDTH = "180px";
 
+var WEEK = "Week"
 var CHECK_IN_DATE = "Check In Date"
 var WEIGHT = "Weight"
 var CHECKED_IN = "Checked In"
+var DIFFERENCE = "Difference"
+var TARGET_WEIGHT = "Target Weight"
 function startupMainDashboard() {
-	fetchWeightGoal();
-	fetchAllCheckInData(updateGrid)
+
+	Q.fcall(fetchWeightGoal)
+	.then(fetchAllCheckInData)
+	.then(fetchWeightLossPerWeek)
+	.then(updateGrid)
+	.done();
+	
+	
 };
 
 
@@ -41,9 +50,14 @@ var updateGrid = function (){
 // Deconstruct the JSON schema into individual column fields
 var buildFields = function(schema){
 	var fields= [];
+	fields.push({ name: WEEK, type: "number", width:"5px", align: "center"});
     fields.push({ name: "Check In Date", type: "text", width:DEFAULT_ID_COL_WIDTH, align: "center"});
     fields.push({ name: "Checked In", type: "checkbox", width:"20px", align: "center"});
+    fields.push({ name: TARGET_WEIGHT, type: "number", width:"40px", align: "center"});
     fields.push({ name: "Weight", type: "number", width:DEFAULT_ID_COL_WIDTH, align: "center"});
+    fields.push({ name: DIFFERENCE, type: "number", width:"40px", align: "center"});
+    
+    
 	return fields;
 }
 
@@ -60,10 +74,21 @@ var structureData = function(schema){
 		
 		var row = allCheckIns[i].data;
 		// If the tag belongs to the selected schema..
+		entry[WEEK] = row["week"]
 		entry[CHECK_IN_DATE]=row["checkindate"];
 		entry[WEIGHT] = row["measuredweightlbs"] == 0 ? null : row["measuredweightlbs"]
 		entry[CHECKED_IN] = row["measured"]
 
+		if(entry[CHECKED_IN] && i >= 1){
+			
+			var after = entry[WEIGHT]
+			var difference =  after - before
+			entry[DIFFERENCE] = difference
+		}
+		if(i >= 1 && allCheckIns[i-1].data["measured"]){
+			var before = allCheckIns[i-1].data["measuredweightlbs"]
+			entry[TARGET_WEIGHT] = before - weightLossPerWeek
+		}
 		data.push(entry)
 	}
 	return data;
