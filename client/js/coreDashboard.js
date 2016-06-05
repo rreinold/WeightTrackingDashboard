@@ -112,7 +112,7 @@ var startup = function(){
             // this path should not happen and would only happen with a misconfigured system or server outage
             alert("failed to init");
         } else {
-
+            
             var authCallback = function(){
                 showView(DEFAULT_POST_LOGIN_VIEW);
                 startupMainDashboard();

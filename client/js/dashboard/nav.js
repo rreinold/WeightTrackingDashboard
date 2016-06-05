@@ -2,7 +2,7 @@ var views = {
       login: {
         setup: function() {
 
-          initButtons();
+
 
           var authCallback = function(){
             showView("maindashboard");

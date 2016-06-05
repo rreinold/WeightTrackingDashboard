@@ -13,7 +13,10 @@ function startupMainDashboard() {
 	Q.fcall(fetchWeightGoal)
 	.then(fetchAllCheckInData)
 	.then(fetchWeightLossPerWeek)
-	.then(updateGrid)
+	.then(function(){
+		updateGrid()
+		visualize()
+		})
 	.done();
 	
 };

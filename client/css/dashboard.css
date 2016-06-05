@@ -71,3 +71,17 @@ li a.active {
     color: white;
     background-color: #4CAF50;
 }
+
+#graph0 {
+  margin: 20px;
+  width: 400px;
+  height: 2px;
+  position: relative;
+}
+
+#graph1 {
+  margin: 20px;
+  width: 400px;
+  height: 2px;
+  position: relative;
+}
