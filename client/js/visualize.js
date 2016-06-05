@@ -61,7 +61,7 @@ function visualize(){
     from: {color: '#FFEA82'},
     to: {color: '#ED6A5A'},
     step: (state, bar) => {
-      bar.setText(Math.round(elapsed * 100) + "% ( "+Math.round(elapsed * 12) + " / 12 weeks )");
+      bar.setText(Math.round(elapsed * 100) + "% ( "+Math.round(elapsed * 16) + " / 16 weeks )");
     }
   });
 
