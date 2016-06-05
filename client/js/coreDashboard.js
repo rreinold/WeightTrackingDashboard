@@ -2,6 +2,8 @@ var unmeasuredCheckIns = null;
 var dueDate = null
 var allCheckIns = null
 var weightLossPerWeek = 0
+var progress = 0
+var elapsed = 100
 
 var cb = new ClearBlade();
 var initOptions = {
@@ -89,6 +91,43 @@ function fetchAllCheckInData(callback){
 
 }
 
+function fetchWeightLossProgress(callback){
+    var deferred = Q.defer()
+
+    ClearBlade.prototype.Code().execute("getWeightLossProgress", {}, function(err, data){
+            if (err){
+               alert(JSON.stringify(data));
+            }else{
+                // Store API response locally
+                progress = data.results
+                
+                deferred.resolve()
+                // callback(data)
+            }
+
+
+    })
+}
+
+
+function fetchElapsedTime(callback){
+    var deferred = Q.defer()
+
+    ClearBlade.prototype.Code().execute("getElapsedTime", {}, function(err, data){
+            if (err){
+               alert(JSON.stringify(data));
+            }else{
+                // Store API response locally
+                elapsed = data.results
+                
+                deferred.resolve()
+                // callback(data)
+            }
+
+
+    })
+}
+
 // Request schemas for the Tag collection
 var isCoordinator = function(successCallback, failureCallback) {
 
@@ -112,7 +151,7 @@ var startup = function(){
             // this path should not happen and would only happen with a misconfigured system or server outage
             alert("failed to init");
         } else {
-            
+
             var authCallback = function(){
                 showView(DEFAULT_POST_LOGIN_VIEW);
                 startupMainDashboard();

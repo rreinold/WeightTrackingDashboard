@@ -1,4 +1,8 @@
 function visualize(){
+
+  removeChildren(document.getElementById("graph0"))
+  removeChildren(document.getElementById("graph1"))
+
   var graph = document.getElementById("graph0")
   var bar = new ProgressBar.Line(graph, {
     strokeWidth: 4,
@@ -25,11 +29,11 @@ function visualize(){
     from: {color: '#FFEA82'},
     to: {color: '#ED6A5A'},
     step: (state, bar) => {
-      bar.setText(Math.round(bar.value() * 100) + ' %');
+      bar.setText((progress * 100) + "% ( " +Math.round(progress * 77) + " / 77 lbs )");
     }
   });
 
-  bar.animate(1.0);  // Number from 0.0 to 1.0
+  bar.animate(progress);  // Number from 0.0 to 1.0
 
   var graph = document.getElementById("graph1")
   var bar = new ProgressBar.Line(graph, {
@@ -57,9 +61,9 @@ function visualize(){
     from: {color: '#FFEA82'},
     to: {color: '#ED6A5A'},
     step: (state, bar) => {
-      bar.setText(Math.round(bar.value() * 100) + ' %');
+      bar.setText(Math.round(elapsed * 100) + "% ( "+Math.round(elapsed * 12) + " / 12 weeks )");
     }
   });
 
-  bar.animate(0.8);  // Number from 0.0 to 1.0
+  bar.animate(elapsed);  // Number from 0.0 to 1.0
 }

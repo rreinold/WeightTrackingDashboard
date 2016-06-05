@@ -10,12 +10,11 @@ var DIFFERENCE = "Difference"
 var TARGET_WEIGHT = "Target Weight"
 function startupMainDashboard() {
 
-	Q.fcall(fetchWeightGoal)
-	.then(fetchAllCheckInData)
-	.then(fetchWeightLossPerWeek)
+	Q.all([fetchWeightGoal(), fetchAllCheckInData(), fetchWeightLossPerWeek(), fetchElapsedTime(), fetchWeightLossProgress()])
 	.then(function(){
 		updateGrid()
 		visualize()
+
 		})
 	.done();
 	
